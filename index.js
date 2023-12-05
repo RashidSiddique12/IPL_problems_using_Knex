@@ -14,13 +14,26 @@ const { problem9 } = require("./server/9-bestEconomyInSuperOver");
 const { problem6 } = require("./server/6-highestPlayerAwardInEachSeason");
 const db = knex(config);
 
-problem1(db);
-problem2(db);
-problem3(db);
-problem4(db);
-problem5(db);
-problem6(db);
 const batsmanX = prompt("Entre batsman name: ");
-problem7(db, batsmanX);
-problem8(db);
-problem9(db);
+
+Promise.all([
+  problem1(db),
+  problem2(db),
+  problem3(db),
+  problem4(db),
+  problem5(db),
+  problem6(db),
+  problem7(db, batsmanX),
+  problem8(db),
+  problem9(db),
+])
+  .then((data) => {
+    data.forEach((res) => {
+      console.log(res);
+    });
+  })
+  .catch((err) => {
+    console.log(err);
+  }).finally(()=>{
+    db.destroy();
+  })

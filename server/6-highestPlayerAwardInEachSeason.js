@@ -1,5 +1,6 @@
 const problem6 = (db) => {
-  db.select("season", "player", "number")
+  return db
+    .select("season", "player", "number")
     .from(function () {
       this.select(`season`, `player_of_match as player`)
         .count("* as number")
@@ -11,13 +12,7 @@ const problem6 = (db) => {
         .groupBy(`season`, `player_of_match`)
         .as("temp");
     })
-    .where("ranking", "=", "1")
-    .then((rows) => {
-      console.log(rows);
-    })
-    .finally(() => {
-      db.destroy();
-    });
+    .where("ranking", "=", "1");
 };
 
 module.exports.problem6 = problem6;

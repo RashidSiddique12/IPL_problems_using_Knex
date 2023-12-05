@@ -1,5 +1,5 @@
 const problem4 = (db) => {
-  db(`deliveries`)
+  return db(`deliveries`)
     .join("Matches", "match_id", "=", "id")
     .select("bowler")
     .select(
@@ -10,16 +10,7 @@ const problem4 = (db) => {
     .groupBy("bowler")
     .where("season", "=", "2015")
     .orderBy("Economy", "asc")
-    .limit("10")
-    .then((rows) => {
-      console.log(rows);
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-    .finally(() => {
-      db.destroy();
-    });
+    .limit("10");
 };
 
 module.exports.problem4 = problem4;

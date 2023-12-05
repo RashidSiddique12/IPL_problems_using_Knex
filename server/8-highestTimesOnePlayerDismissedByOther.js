@@ -1,5 +1,6 @@
 const problem8 = (db) => {
-  db.select("bowler", "player", "number")
+  return db
+    .select("bowler", "player", "number")
     .from(function () {
       this.select("bowler", "player_dismissed as player")
         .count("* as number")
@@ -10,13 +11,7 @@ const problem8 = (db) => {
         .andWhere("dismissal_kind", "!=", "run out")
         .as("temp");
     })
-    .where(`ranking`, "=", "1")
-    .then((rows) => {
-      console.log(rows);
-    })
-    .finally(() => {
-      db.destroy();
-    });
+    .where(`ranking`, "=", "1");
 };
 
 module.exports.problem8 = problem8;
